@@ -62,6 +62,16 @@ public class gestorArchivos {
         return texto;
     }
 
+    public String conseguirNombre(String path) {
+        String salida = "";
+
+        String[] partes = path.split("[\\\\/]");
+        salida = partes[partes.length - 1];
+
+        return salida;
+
+    }
+
     public void contarPalabras() {
         int contador = 0;
         String temp = "";
@@ -69,23 +79,29 @@ public class gestorArchivos {
 
         // este primer for es para recorrer los archivos de texto
         for (int i = 0; i < paths.size(); i++) {
-            // System.out.println(paths.get(i));
+            int contadorTemp = 0;
+
             temp = leerArchivos(paths.get(i)); // Aqui accedo a leer el archivo de texto
             String[] palabras = temp.split("\\s+|\\p{Punct}");
 
             // Aqui estoy recorriendo por las palabras y de esa forma empiezo a contar las
             // ocurrencias
             for (int j = 0; j < palabras.length; j++) {
-                int contadorTemp = 0;
-                System.out.println(palabras[j]);
                 if (palabras[j].equals(palabra.getPalabra())) {
                     contador += 1;
-                    contadorTemp+=1;
+                    contadorTemp += 1;
+                }
+
+                if (j == palabras.length - 1) {
+                    String nombre = conseguirNombre(paths.get(i));
+                    System.out.println(nombre + " " + contadorTemp + " veces");
+
                 }
 
             }
+
         }
-        System.out.println(contador); // Contador de las veces qeu apareció en todos los textos
+        System.out.println("Total: " + contador); // Contador de las veces qeu apareció en todos los textos
     }
 
 }

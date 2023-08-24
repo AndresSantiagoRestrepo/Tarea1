@@ -3,7 +3,6 @@ package models;
 public class Palabras {
 
     private String palabra;
-    private int vecesTexto;
     private int vecesCarpeta;
 
     public Palabras(String palabra) {
@@ -14,10 +13,7 @@ public class Palabras {
         this.palabra = palabra;
     }
 
-    public void setVecesTexto(int vecesTexto) {
-        this.vecesTexto = vecesTexto;
-    }
-
+    
     public void setVecesCarpeta(int vecesCarpeta) {
         this.vecesCarpeta = vecesCarpeta;
     }
@@ -26,9 +22,7 @@ public class Palabras {
         return palabra;
     }
 
-    public int getVecesTexto() {
-        return vecesTexto;
-    }
+   
 
     public int getVecesCarpeta() {
         return vecesCarpeta;
