@@ -22,6 +22,20 @@ public class Palabras {
         this.vecesCarpeta = vecesCarpeta;
     }
 
+    public String getPalabra() {
+        return palabra;
+    }
+
+    public int getVecesTexto() {
+        return vecesTexto;
+    }
+
+    public int getVecesCarpeta() {
+        return vecesCarpeta;
+    }
+
+
+    
     
 
 }
