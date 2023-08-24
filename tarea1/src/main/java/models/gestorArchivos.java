@@ -8,10 +8,11 @@ import java.util.ArrayList;
 public class gestorArchivos {
 
     private String strRuta;
-    private String palabra;
+    public Palabras palabra;
 
-    public gestorArchivos(String strRuta) {
+    public gestorArchivos(String strRuta, Palabras palabra) {
         this.strRuta = strRuta;
+        this.palabra = palabra;
 
     }
 
@@ -20,7 +21,7 @@ public class gestorArchivos {
         this.strRuta = strRuta;
     }
 
-    public void setPalabra(String palabra) {
+    public void setPalabra(Palabras palabra) {
         this.palabra = palabra;
     }
 
@@ -62,6 +63,7 @@ public class gestorArchivos {
     }
 
     public void contarPalabras() {
+        int contador = 0;
         String temp = "";
         ArrayList<String> paths = abrirRuta();
 
@@ -69,21 +71,21 @@ public class gestorArchivos {
         for (int i = 0; i < paths.size(); i++) {
             // System.out.println(paths.get(i));
             temp = leerArchivos(paths.get(i)); // Aqui accedo a leer el archivo de texto
-            String[] palabras = temp.split(" ");
+            String[] palabras = temp.split("\\s+|\\p{Punct}");
 
             // Aqui estoy recorriendo por las palabras y de esa forma empiezo a contar las
             // ocurrencias
             for (int j = 0; j < palabras.length; j++) {
-                int contador = 0;
+                int contadorTemp = 0;
                 System.out.println(palabras[j]);
-                if (palabras[j] == this.palabra) {
-                    contador++;
-
+                if (palabras[j].equals(palabra.getPalabra())) {
+                    contador += 1;
+                    contadorTemp+=1;
                 }
 
             }
         }
-
+        System.out.println(contador); // Contador de las veces qeu apareció en todos los textos
     }
 
 }
