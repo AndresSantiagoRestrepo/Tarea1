@@ -44,17 +44,18 @@ public class gestorArchivos {
         String texto = "";
 
         try {
-            BufferedReader bf = new BufferedReader(new FileReader(path));
-            String temp = "";
-            String bfRead;
+            try (BufferedReader bf = new BufferedReader(new FileReader(path))) {
+                String temp = "";
+                String bfRead;
 
-            while ((bfRead = bf.readLine()) != null) {
+                while ((bfRead = bf.readLine()) != null) {
 
-                temp = temp + bfRead;
+                    temp = temp + bfRead;
 
+                }
+
+                texto = temp;
             }
-
-            texto = temp;
 
         } catch (Exception e) {
             System.out.println("Error Archivo " + " " + e);
