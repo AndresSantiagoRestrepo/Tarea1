@@ -1,1 +1,2 @@
-hora inicio 3PM 23/08/20023
+hora inicio 3PM fin 4:20 23/08/20023
+hora inicio 8:53
