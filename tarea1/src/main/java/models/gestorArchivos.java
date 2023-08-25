@@ -26,15 +26,28 @@ public class gestorArchivos {
     }
 
     public ArrayList<String> abrirRuta() {
-        File ruta = new File(this.strRuta);
-        String[] nombresArchivos = ruta.list();
         ArrayList<String> txtPaths = new ArrayList<String>();
 
-        for (int i = 0; i < nombresArchivos.length; i++) {
+        try {
+            File ruta = new File(this.strRuta);
+            String[] nombresArchivos = ruta.list();
 
-            String path = this.strRuta + "/" + nombresArchivos[i];
-            txtPaths.add(path);
+            if (!ruta.exists()) {
+
+                System.out.println("No se encuentra la carpeta indicada");
+
+            } else {
+                for (int i = 0; i < nombresArchivos.length; i++) {
+
+                    String path = this.strRuta + "/" + nombresArchivos[i];
+                    txtPaths.add(path);
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("error: la ruta especificada no existe");
         }
+
         return txtPaths;
 
     }
@@ -44,18 +57,16 @@ public class gestorArchivos {
         String texto = "";
 
         try {
-            try (BufferedReader bf = new BufferedReader(new FileReader(path))) {
-                String temp = "";
-                String bfRead;
+            BufferedReader bf = new BufferedReader(new FileReader(path));
+            String temp = "";
+            String bfRead;
 
-                while ((bfRead = bf.readLine()) != null) {
+            while ((bfRead = bf.readLine()) != null) {
 
-                    temp = temp + bfRead;
-
-                }
-
-                texto = temp;
+                temp = temp + bfRead;
             }
+
+            texto = temp;
 
         } catch (Exception e) {
             System.out.println("Error Archivo " + " " + e);
@@ -74,6 +85,7 @@ public class gestorArchivos {
     }
 
     public void contarPalabras() {
+        boolean flag = false;
         int contador = 0;
         String temp = "";
         ArrayList<String> paths = abrirRuta();
@@ -82,27 +94,45 @@ public class gestorArchivos {
         for (int i = 0; i < paths.size(); i++) {
             int contadorTemp = 0;
 
-            temp = leerArchivos(paths.get(i)); // Aqui accedo a leer el archivo de texto
-            String[] palabras = temp.split("\\s+|\\p{Punct}");
+            if (conseguirNombre(paths.get(i)).endsWith(".txt") || conseguirNombre(paths.get(i)).endsWith(".xml") ||
+                    conseguirNombre(paths.get(i)).endsWith(".json") || conseguirNombre(paths.get(i)).endsWith(".csv")) {
+                flag = true;
+                temp = leerArchivos(paths.get(i)); // Aqui accedo a leer el archivo de texto
+                String[] palabras = temp.split("\\s+|\\p{Punct}");
 
-            // Aqui estoy recorriendo por las palabras y de esa forma empiezo a contar las
-            // ocurrencias
-            for (int j = 0; j < palabras.length; j++) {
-                if (palabras[j].equals(palabra.getPalabra())) {
-                    contador += 1;
-                    contadorTemp += 1;
-                }
+                // Aqui estoy recorriendo por las palabras y de esa forma empiezo a contar las
+                // ocurrencias
+                for (int j = 0; j < palabras.length; j++) {
+                    if (palabras[j].equals(palabra.getPalabra())) {
+                        contador += 1;
+                        contadorTemp += 1;
+                    }
 
-                if (j == palabras.length - 1) {
-                    String nombre = conseguirNombre(paths.get(i));
-                    System.out.println(nombre + " " + contadorTemp + " veces");
+                    if (j == palabras.length - 1) {
+                        String nombre = conseguirNombre(paths.get(i));
+                        System.out.println(nombre + " " + contadorTemp + " veces");
+
+                    }
 
                 }
 
             }
-
         }
-        System.out.println("Total: " + contador); // Contador de las veces qeu apareció en todos los textos
+        if (flag) {
+            System.out.println("Total: " + contador); // Contador de las veces que apareció en todos los textos
+        } else {
+            System.out.println("No se encontraron archivos de texto en la carpeta");
+        }
+    }
+
+    public void iniciar() {
+
+        if ((this.strRuta != "") && (this.palabra != null)) {
+            contarPalabras();
+        } else {
+            System.out.println("Uno de los campos quedó vacío, reintente");
+        }
+
     }
 
 }

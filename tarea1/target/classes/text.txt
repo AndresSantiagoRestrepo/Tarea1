@@ -1,2 +1,11 @@
 hora inicio 3PM fin 4:20 23/08/20023
-hora inicio 8:53
+hora inicio 9:00 fin 11:30
+
+
+
+El tiempo total que tengo estimado para la realizacion de este proyecto son 5 horas aprox, recordando aspectos de java y leyendo
+ documentaciones para encontrar solucion a lso requisitos
+
+Tiempo total implementando solucion a los requisitos, documentacion y videotutoriales 4 horas 20 minutos
+
+en la elaboracion del diagrama de clases me tomé 15 minutos
